@@ -79,13 +79,14 @@ class BoardTest < Minitest::Test
     cell_3 = board.cells["A3"]
 
     board.place(cruiser, ["A1", "A2", "A3"])
-    assert_equal Ship, cell_1.ship
-    assert_equal Ship, cell_2.ship
-    assert_equal Ship, cell_3.ship
+    assert_instance_of Ship, cell_1.ship
+    assert_instance_of Ship, cell_2.ship
+    assert_instance_of Ship, cell_3.ship
     assert_equal true, cell_3.ship == cell_2.ship
   end
 
   def test_it_can_be_rendered
-    
+    board = Board.new
+    assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", board.render
   end
 end
