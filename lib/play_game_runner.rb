@@ -50,18 +50,5 @@ class PlayGameRunner
     # p comp_submarine_coords
   end
 
-  def set_up_player
-    player_board = Board.new
-    player_cruiser = Ship.new("Cruiser", 3)
-    player_submarine = Ship.new("Submarine", 2)
 
-    puts "The computers ships have been placed on the board."
-    puts "It is your turn to place your two ships."
-    puts "The Cruiser is three units long and the Submarine is two units long."
-      1 2 3 4
-    A . . . .
-    B . . . .
-    C . . . .
-    D . . . .
-  end
 end
