@@ -85,10 +85,6 @@ class PlayGameRunner
 
   def turn(computer_board, player_board)
     # A single turn consists of:
-
-    # Displaying the boards
-    # Player choosing a coordinate to fire on
-    # Computer choosing a coordinate to fire on
     # Reporting the result of the Player’s shot
     # Reporting the result of the Computer’s shot
 
@@ -99,24 +95,32 @@ class PlayGameRunner
     puts player_board.render(true)
 
     # Player shot
-    # 1.) Player prompted to give coordinate
-    # 2.) Player gives coordinate
-    # 3.) If coordinate if invalid, prompt again
-    # 4.) Else, fire on coordinate
     loop do
       puts "Enter coordinate to fire upon"
       player_input = gets.chomp
       if computer_board.valid_coordinate?(player_input) == true
         computer_board.cells[player_input].fire_upon
+        if computer_board.cells[player_input].render(true) == "M"
+          puts "Your shot on #{player_input} was a miss."
+        elsif computer_board.cells[player_input].render(true) == "H"
+          puts "Your shot on #{player_input} was a hit."
+        end
         break
       end
       puts "That is not a valid coordinate. Please try again:"
     end
 
-    # Computer Shot 
+    # Computer Shot
     computer_input = player_board.cells.keys.sample
     if player_board.valid_coordinate?(computer_input) == true
       player_board.cells[computer_input].fire_upon
+      if player_board.cells[computer_input].render(true) == "M"
+        puts "Computer shot on #{computer_input} was a miss."
+      elsif player_board.cells[computer_input].render(true) == "H"
+        puts "Computer shot on #{computer_input} was a hit."
+      end
     end
+
+
   end
 end
