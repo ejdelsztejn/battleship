@@ -19,10 +19,10 @@ class Board
   def valid_placement?(ship, coordinates)
     answer = true
     answer = false if !are_coordinates_ship_length?(ship, coordinates)
+    answer = false if contains_ship?(coordinates)
     i = 0
     until i == coordinates.size - 1
-      answer = false if contains_ship?(coordinates[i])
-      if are_coordinates_same_letter?(ship, coordinates, i)
+      if are_coordinates_same_letter?(ship, coordinates)
         answer = false unless are_coordinate_nums_consecutive?(ship, coordinates, i)
       else
         if !are_coordinate_letters_consecutive?(ship, coordinates, i)
@@ -42,8 +42,11 @@ class Board
     coordinates.size == ship.length
   end
 
-  def are_coordinates_same_letter?(ship, coordinates, iterate)
-    coordinates[iterate][0] == coordinates[iterate + 1][0]
+  def are_coordinates_same_letter?(ship, coordinates)
+    letters = coordinates.map do |coordinate|
+      coordinate[0]
+    end
+    true if letters.uniq.size == 1
   end
 
   def are_coordinate_nums_consecutive?(ship, coordinates, iterate)
@@ -58,8 +61,12 @@ class Board
     coordinates[iterate][1] == coordinates[iterate + 1][1]
   end
 
-  def contains_ship?(coordinate)
-    @cells[coordinate].empty? == false
+  def contains_ship?(coordinates)
+    answer = false
+    coordinates.each do |coordinate|
+      answer = true if @cells[coordinate].empty? == false
+    end
+    answer
   end
 
   def place(ship, coordinates)
