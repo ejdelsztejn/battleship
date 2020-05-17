@@ -36,7 +36,7 @@ class PlayGameRunner
       break if computer_board.valid_placement?(computer_cruiser, comp_cruiser_coords)
     end
     computer_board.place(computer_cruiser, comp_cruiser_coords)
-    computer_board.render(true)
+    p computer_board.render(true)
 
     # comp_submarine_coords = Array.new
     # loop do
