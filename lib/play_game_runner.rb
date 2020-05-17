@@ -56,23 +56,18 @@ class PlayGameRunner
     puts "The computers ships have been placed on the board."
     puts "It is your turn to place your two ships."
     puts "The Cruiser is three units long and the Submarine is two units long."
-    puts "Enter the squares for the Cruiser (3 spaces):"
-
 
     # player needs to select 3 valid placement cells
     # > A1 A2 A3
     # Enter the squares for the Submarine (2 spaces):
 
-    # player_cruiser_coords = Array.new
+    player_cruiser_coords = Array.new
     loop do
+      puts "Enter the squares for the Cruiser (3 spaces):"
       player_input = gets.chomp
-      list = player_input.split(" ")
-      p list
-      # player_cruiser_coords = Array.new
-      # until player_cruiser_coords.length == player_cruiser.length do
-      #   player_cruiser_coords << player_board.cells.keys.sample
-      # end
-      break #player_board.valid_placement?(player_cruiser, player_cruiser_coords)
+      player_cruiser_coords = player_input.split(" ")
+      break if player_board.valid_placement?(player_cruiser, player_cruiser_coords) == true
+      puts "Those are invalid coordinates. Please try again:"
     end
 
     # player_board.place(player_cruiser, player_cruiser_coords)
