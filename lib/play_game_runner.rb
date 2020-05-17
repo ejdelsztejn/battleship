@@ -106,8 +106,17 @@ class PlayGameRunner
     loop do
       puts "Enter coordinate to fire upon"
       player_input = gets.chomp
-      break if computer_board.valid_coordinate?(player_input) == true
+      if computer_board.valid_coordinate?(player_input) == true
+        computer_board.cells[player_input].fire_upon
+        break
+      end
       puts "That is not a valid coordinate. Please try again:"
+    end
+
+    # Computer Shot 
+    computer_input = player_board.cells.keys.sample
+    if player_board.valid_coordinate?(computer_input) == true
+      player_board.cells[computer_input].fire_upon
     end
   end
 end
