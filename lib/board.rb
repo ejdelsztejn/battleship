@@ -22,7 +22,7 @@ class Board
     answer = false if contains_ship?(coordinates)
     i = 0
     until i == coordinates.size - 1
-      if are_coordinates_same_letter?(ship, coordinates, i)
+      if are_coordinates_same_letter?(ship, coordinates)
         answer = false unless are_coordinate_nums_consecutive?(ship, coordinates, i)
       else
         if !are_coordinate_letters_consecutive?(ship, coordinates, i)
@@ -42,8 +42,11 @@ class Board
     coordinates.size == ship.length
   end
 
-  def are_coordinates_same_letter?(ship, coordinates, iterate)
-    coordinates[iterate][0] == coordinates[iterate + 1][0]
+  def are_coordinates_same_letter?(ship, coordinates)
+    letters = coordinates.map do |coordinate|
+      coordinate[0]
+    end
+    true if letters.uniq.size == 1
   end
 
   def are_coordinate_nums_consecutive?(ship, coordinates, iterate)
