@@ -8,12 +8,12 @@ class ComputerPlayer
 
   def set_up_cruiser
     loop do
-      comp_cruiser_coords = Array.new
-      until comp_cruiser_coords.length == computer_cruiser.length do
-        comp_cruiser_coords << computer_board.cells.keys.sample
+      cruiser_coords = Array.new
+      until cruiser_coords.length == cruiser.length do
+        cruiser_coords << board.cells.keys.sample
       end
-      if computer_board.valid_placement?(computer_cruiser, comp_cruiser_coords)
-        computer_board.place(computer_cruiser, comp_cruiser_coords)
+      if board.valid_placement?(cruiser, cruiser_coords)
+        @board.place(cruiser, cruiser_coords)
         break
       end
     end
@@ -21,12 +21,12 @@ class ComputerPlayer
 
   def set_up_submarine
     loop do
-      comp_submarine_coords = Array.new
-      until comp_submarine_coords.length == computer_submarine.length do
-        comp_submarine_coords << computer_board.cells.keys.sample
+      submarine_coords = Array.new
+      until submarine_coords.length == submarine.length do
+        submarine_coords << board.cells.keys.sample
       end
-      if computer_board.valid_placement?(computer_submarine, comp_submarine_coords)
-        computer_board.place(computer_submarine, comp_submarine_coords)
+      if board.valid_placement?(submarine, submarine_coords)
+        @board.place(submarine, submarine_coords)
       end
     end
   end
