@@ -4,12 +4,12 @@ require './lib/ship'
 require './lib/cell'
 require './lib/board'
 
-class PlayGameTest < Minitest::Test
+class GameTest < Minitest::Test
 
   def test_it_exists
-    game = Game.new
-    computer_board = Board.new
-    player_board = Board.new
+    game = Game.new.start
+    computer = Board.new
+    player = Board.new
 
     assert_instance_of Game, game
   end

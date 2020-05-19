@@ -4,11 +4,6 @@ require './lib/board'
 
 class Game
 
-def initialize
-
-end
-
-
   def start
     computer_board = Board.new
     player_board = Board.new
