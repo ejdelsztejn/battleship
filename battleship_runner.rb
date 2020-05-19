@@ -1,3 +1,3 @@
 require './lib/play_game_runner'
 
-PlayGameRunner.new.start
+Game.new.start
