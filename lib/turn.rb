@@ -9,6 +9,19 @@ class Turn
     @player_ships_sunk = 0
   end
 
+  def header
+    puts  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    puts  " _           _   _   _           _     _        "
+    puts  "| |         | | | | | |         | |   (_)       "
+    puts  "| |__   __ _| |_| |_| | ___  ___| |__  _ _ __   "
+    puts  "| '_ \ / _` | __| __| |/ _ \/ __| '_ \| | '_ \  "
+    puts  "| |_) | (_| | |_| |_| |  __/\__ \ | | | | |_) | "
+    puts  "|_.__/ \__,_|\__|\__|_|\___||___/_| |_|_| .__/  "
+    puts  "                                       | |      "
+    puts  "                                       |_|      "
+    puts  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  end
+
   def display_boards(computer, player)
     puts "=============COMPUTER BOARD============="
     puts @computer.board.render

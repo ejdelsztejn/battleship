@@ -26,6 +26,7 @@ class HumanPlayer
       submarine_coords = input.split(" ")
       if board.valid_placement?(submarine, submarine_coords) == true
         @board.place(submarine, submarine_coords)
+        system 'clear'
         break
       end
       puts "Those are invalid coordinates. Please try again:"

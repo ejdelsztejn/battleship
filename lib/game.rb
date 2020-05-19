@@ -16,7 +16,19 @@ class Game
 
   def start
     system 'clear'
+    puts  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    puts  " _           _   _   _           _     _        "
+    puts  "| |         | | | | | |         | |   (_)       "
+    puts  "| |__   __ _| |_| |_| | ___  ___| |__  _ _ __   "
+    puts  "| '_ \ / _` | __| __| |/ _ \/ __| '_ \| | '_ \  "
+    puts  "| |_) | (_| | |_| |_| |  __/\__ \ | | | | |_) | "
+    puts  "|_.__/ \__,_|\__|\__|_|\___||___/_| |_|_| .__/  "
+    puts  "                                       | |      "
+    puts  "                                       |_|      "
+    puts  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    puts ""
     puts "Welcome to BATTLESHIP."
+    sleep(0.8)
     puts "Enter p to play. Enter q to quit."
 
     input = gets.chomp
@@ -24,9 +36,24 @@ class Game
       computer.set_up_cruiser
       computer.set_up_submarine
 
+      system 'clear'
+      puts  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+      puts  " _           _   _   _           _     _        "
+      puts  "| |         | | | | | |         | |   (_)       "
+      puts  "| |__   __ _| |_| |_| | ___  ___| |__  _ _ __   "
+      puts  "| '_ \ / _` | __| __| |/ _ \/ __| '_ \| | '_ \  "
+      puts  "| |_) | (_| | |_| |_| |  __/\__ \ | | | | |_) | "
+      puts  "|_.__/ \__,_|\__|\__|_|\___||___/_| |_|_| .__/  "
+      puts  "                                       | |      "
+      puts  "                                       |_|      "
+      puts  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+      puts ""
       puts "The computers' ships have been placed on the board."
+      sleep(0.8)
       puts "It is your turn to place your two ships."
+      sleep(0.8)
       puts "The Cruiser is three units long and the Submarine is two units long."
+      sleep(0.8)
 
       player.set_up_cruiser
       player.set_up_submarine
@@ -37,14 +64,15 @@ class Game
 
   def play(computer, player)
     loop do
-      sleep(0.5)
       system 'clear'
       turn = Turn.new(computer, player)
+      turn.header
       turn.display_boards(computer, player)
       turn.player_shot(player)
       turn.computer_shot(computer)
       @computer_ships_sunk += turn.computer_ships_sunk
       @player_ships_sunk += turn.player_ships_sunk
+      sleep(0.8)
       if computer_ships_sunk?
         puts "You won!"
         break
