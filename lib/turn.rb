@@ -1,11 +1,15 @@
+require './lib/game'
+
 class Turn
-  def initialize
+  attr_reader :computer, :player, :computer_ships_sunk, :player_ships_sunk
+  def initialize(computer, player)
     @computer = computer
     @player = player
+    @computer_ships_sunk = 0
+    @player_ships_sunk = 0
   end
 
   def display_boards(computer, player)
-    # Displaying boards
     puts "=============COMPUTER BOARD============="
     puts @computer.board.render
     puts "==============PLAYER BOARD=============="
@@ -24,7 +28,8 @@ class Turn
           elsif computer.board.cells[player_input].render(true) == "H"
             puts "Your shot on #{player_input} was a hit."
           elsif computer.board.cells[player_input].render(true) == "X"
-            puts "Your shot on #{player_input} sunk the a ship."
+            puts "Your shot on #{player_input} sunk a ship."
+            @computer_ships_sunk += 1
           end
           break
         end
@@ -36,7 +41,7 @@ class Turn
   def computer_shot(computer)
     computer_input = player.board.cells.keys.sample
     if player.board.valid_coordinate?(computer_input) == true
-      if computer.board.cells[player_input].fired_upon? == false
+      if computer.board.cells[computer_input].fired_upon? == false
         @player.board.cells[computer_input].fire_upon
         if player.board.cells[computer_input].render(true) == "M"
           puts "Computer shot on #{computer_input} was a miss."
@@ -44,6 +49,7 @@ class Turn
           puts "Computer shot on #{computer_input} was a hit."
         elsif player.board.cells[computer_input].render(true) == "X"
           puts "Computer shot on #{computer_input} sunk a ship."
+          @player_ships_sunk += 1
         end
       end
     end
