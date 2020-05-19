@@ -4,7 +4,7 @@ require './lib/board'
 require './lib/computer_player'
 require './lib/human_player'
 
-class PlayGameRunner
+class Game
 
   def start
     computer = ComputerPlayer.new
