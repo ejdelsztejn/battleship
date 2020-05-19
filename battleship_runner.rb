@@ -1,3 +1,6 @@
 require './lib/game'
 
-Game.new.start
+computer = ComputerPlayer.new
+player = HumanPlayer.new
+
+Game.new(computer, player)
