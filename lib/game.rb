@@ -15,6 +15,7 @@ class Game
   end
 
   def start
+    system 'clear'
     puts "Welcome to BATTLESHIP."
     puts "Enter p to play. Enter q to quit."
 
@@ -35,21 +36,39 @@ class Game
   end
 
   def play(computer, player)
-    15.times do
+    loop do
+      sleep(0.5)
+      system 'clear'
       turn = Turn.new(computer, player)
       turn.display_boards(computer, player)
       turn.player_shot(player)
       turn.computer_shot(computer)
       @computer_ships_sunk += turn.computer_ships_sunk
       @player_ships_sunk += turn.player_ships_sunk
+      if computer_ships_sunk?
+        puts "You won!"
+        break
+      elsif player_ships_sunk?
+        puts "Computer won!"
+        break
+      else
+        next
+      end
     end
+    play_again?
   end
 
-  # def computer_ships_sunk?(player)
-  #   
-  # end
-  #
-  # def player_ships_sunk?(player)
-  #
-  # end
+  def computer_ships_sunk?
+    computer_ships_sunk == 2
+  end
+
+  def player_ships_sunk?
+    player_ships_sunk == 2
+  end
+
+  def play_again?
+    puts "Would you like to play again? (y)es / (n)o "
+    input = gets.chomp
+    start if input.downcase == 'y'
+  end
 end
