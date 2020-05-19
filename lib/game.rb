@@ -52,7 +52,7 @@ class Game
           elsif computer.board.cells[player_input].render(true) == "H"
             puts "Your shot on #{player_input} was a hit."
           elsif computer.board.cells[player_input].render(true) == "X"
-            puts "Your shot on #{player_input} sunk the #{computer.board.cells.ship.name}."
+            puts "Your shot on #{player_input} sunk the a ship."
           end
 
           break
@@ -69,7 +69,7 @@ class Game
         elsif player.board.cells[computer_input].render(true) == "H"
           puts "Computer shot on #{computer_input} was a hit."
         elsif player.board.cells[computer_input].render(true) == "X"
-          puts "Computer shot on #{computer_input} sunk the #{player.board.cells.ship.name}."
+          puts "Computer shot on #{computer_input} sunk a ship."
         end
       end
     end
