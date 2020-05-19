@@ -41,20 +41,37 @@ class PlayGameRunner
     10.times do
       display_boards(computer, player)
 
+  
+      # Player shot
       loop do
         puts "Enter coordinate to fire upon"
         player_input = gets.chomp
-        if computer.board.valid_coordinate?(player_input) == true
-          computer.board.cells[player_input].fire_upon
+        if computer_board.valid_coordinate?(player_input) == true
+          computer_board.cells[player_input].fire_upon
+          if computer_board.cells[player_input].render(true) == "M"
+            puts "Your shot on #{player_input} was a miss."
+          elsif computer_board.cells[player_input].render(true) == "H"
+            puts "Your shot on #{player_input} was a hit."
+          elsif computer_board.cells[player_input].render(true) == "X"
+            puts "Your shot on #{player_input} sunk the #{computer_board.cells.ship.name}."
+          end
+
           break
         end
         puts "That is not a valid coordinate. Please try again:"
       end
 
       # Computer Shot
-      computer_input = player.board.cells.keys.sample
-      if player.board.valid_coordinate?(computer_input) == true
-        player.board.cells[computer_input].fire_upon
+      computer_input = player_board.cells.keys.sample
+      if player_board.valid_coordinate?(computer_input) == true
+        player_board.cells[computer_input].fire_upon
+        if player_board.cells[computer_input].render(true) == "M"
+          puts "Computer shot on #{computer_input} was a miss."
+        elsif player_board.cells[computer_input].render(true) == "H"
+          puts "Computer shot on #{computer_input} was a hit."
+        elsif player_board.cells[computer_input].render(true) == "X"
+          puts "Computer shot on #{computer_input} sunk the #{player_board.cells.ship.name}."
+        end
       end
     end
   end
