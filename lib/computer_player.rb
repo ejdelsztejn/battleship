@@ -27,6 +27,7 @@ class ComputerPlayer
       end
       if board.valid_placement?(submarine, submarine_coords)
         @board.place(submarine, submarine_coords)
+        break
       end
     end
   end
