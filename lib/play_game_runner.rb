@@ -1,6 +1,8 @@
 require './lib/ship'
 require './lib/cell'
 require './lib/board'
+require './lib/computer_player'
+require './lib/human_player'
 
 class PlayGameRunner
 
@@ -27,40 +29,33 @@ class PlayGameRunner
     end
   end
 
-  def turn(computer_board, player_board)
-    # A single turn consists of:
-
-    # Displaying the boards
-    # Player choosing a coordinate to fire on
-    # Computer choosing a coordinate to fire on
-    # Reporting the result of the Player’s shot
-    # Reporting the result of the Computer’s shot
-
+  def display_boards(computer, player)
     # Displaying boards
     puts "=============COMPUTER BOARD============="
-    puts computer_board.render
+    puts computer.board.render
     puts "==============PLAYER BOARD=============="
-    puts player_board.render(true)
+    puts player.board.render(true)
+  end
 
-    # Player shot
-    # 1.) Player prompted to give coordinate
-    # 2.) Player gives coordinate
-    # 3.) If coordinate if invalid, prompt again
-    # 4.) Else, fire on coordinate
-    loop do
-      puts "Enter coordinate to fire upon"
-      player_input = gets.chomp
-      if computer_board.valid_coordinate?(player_input) == true
-        computer_board.cells[player_input].fire_upon
-        break
+  def turn(computer, player)
+    10.times do
+      display_boards(computer, player)
+
+      loop do
+        puts "Enter coordinate to fire upon"
+        player_input = gets.chomp
+        if computer.board.valid_coordinate?(player_input) == true
+          computer.board.cells[player_input].fire_upon
+          break
+        end
+        puts "That is not a valid coordinate. Please try again:"
       end
-      puts "That is not a valid coordinate. Please try again:"
-    end
 
-    # Computer Shot
-    computer_input = player_board.cells.keys.sample
-    if player_board.valid_coordinate?(computer_input) == true
-      player_board.cells[computer_input].fire_upon
+      # Computer Shot
+      computer_input = player.board.cells.keys.sample
+      if player.board.valid_coordinate?(computer_input) == true
+        player.board.cells[computer_input].fire_upon
+      end
     end
   end
 end
