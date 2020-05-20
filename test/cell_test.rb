@@ -2,6 +2,11 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/ship'
 require './lib/cell'
+require './lib/turn'
+require './lib/board'
+require './lib/computer_player'
+require './lib/game'
+require './lib/human_player'
 
 class CellTest < Minitest::Test
 

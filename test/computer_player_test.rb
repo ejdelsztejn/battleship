@@ -4,6 +4,9 @@ require './lib/board'
 require './lib/cell'
 require './lib/ship'
 require './lib/computer_player'
+require './lib/turn'
+require './lib/game'
+require './lib/human_player'
 
 class ComputerPlayerTest < Minitest::Test
 
@@ -31,7 +34,7 @@ class ComputerPlayerTest < Minitest::Test
     computer_player = ComputerPlayer.new
     computer_player.set_up_cruiser
 
-    assert_equal [@cell, @cell, @cell], @board.place 
+    assert_equal [@cell, @cell, @cell], @board.place
   end
 
   def test_it_can_set_up_submarine
