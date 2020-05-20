@@ -75,9 +75,11 @@ class Game
       sleep(0.8)
       if computer_ships_sunk?
         puts "You won!"
+        turn.display_boards(computer, player)
         break
       elsif player_ships_sunk?
         puts "Computer won!"
+        turn.display_boards(computer, player)
         break
       else
         next

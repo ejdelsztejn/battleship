@@ -53,18 +53,17 @@ class Turn
 
   def computer_shot(computer)
     computer_input = player.board.cells.keys.sample
-    if player.board.valid_coordinate?(computer_input) == true
-      if computer.board.cells[computer_input].fired_upon? == false
-        @player.board.cells[computer_input].fire_upon
-        if player.board.cells[computer_input].render(true) == "M"
-          puts "Computer shot on #{computer_input} was a miss."
-        elsif player.board.cells[computer_input].render(true) == "H"
-          puts "Computer shot on #{computer_input} was a hit."
-        elsif player.board.cells[computer_input].render(true) == "X"
-          puts "Computer shot on #{computer_input} sunk a ship."
-          @player_ships_sunk += 1
-        end
-      end
+    until player.board.valid_coordinate?(computer_input) && player.board.cells[computer_input].fired_upon? == false
+      computer_input = player.board.cells.keys.sample
+    end
+    @player.board.cells[computer_input].fire_upon
+    if player.board.cells[computer_input].render(true) == "M"
+      puts "Computer shot on #{computer_input} was a miss."
+    elsif player.board.cells[computer_input].render(true) == "H"
+      puts "Computer shot on #{computer_input} was a hit."
+    elsif player.board.cells[computer_input].render(true) == "X"
+      puts "Computer shot on #{computer_input} sunk a ship."
+      @player_ships_sunk += 1
     end
   end
 end
