@@ -39,6 +39,10 @@ class ComputerPlayerTest < Minitest::Test
 
   def test_it_can_set_up_submarine
     skip
+    omputer_player = ComputerPlayer.new
+    computer_player.set_up_submarine
+
+    assert_equal [@cell, @cell], @board.place
   end
 
 end
