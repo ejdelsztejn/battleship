@@ -43,7 +43,7 @@ class TurnTest < Minitest::Test
     computer_player = ComputerPlayer.new
     human_player = HumanPlayer.new
     turn = Turn.new(computer_player, human_player)
-    
+    turn.player_shot
   end
 
 
