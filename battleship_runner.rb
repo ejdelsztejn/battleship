@@ -1,3 +1,7 @@
-require './lib/play_game_runner'
+require './lib/game'
 
-Game.new.start
+computer = ComputerPlayer.new
+player = HumanPlayer.new
+
+game = Game.new(computer, player)
+game.start

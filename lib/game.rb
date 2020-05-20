@@ -3,14 +3,32 @@ require './lib/cell'
 require './lib/board'
 require './lib/computer_player'
 require './lib/human_player'
+require './lib/turn'
 
 class Game
+  attr_reader :computer, :player, :computer_ships_sunk, :player_ships_sunk
+  def initialize(computer, player)
+    @computer = computer
+    @player = player
+    @computer_ships_sunk = 0
+    @player_ships_sunk = 0
+  end
 
   def start
-    computer = ComputerPlayer.new
-    player = HumanPlayer.new
-
+    system 'clear'
+    puts  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    puts  " _           _   _   _           _     _        "
+    puts  "| |         | | | | | |         | |   (_)       "
+    puts  "| |__   __ _| |_| |_| | ___  ___| |__  _ _ __   "
+    puts  "| '_ \ / _` | __| __| |/ _ \/ __| '_ \| | '_ \  "
+    puts  "| |_) | (_| | |_| |_| |  __/\__ \ | | | | |_) | "
+    puts  "|_.__/ \__,_|\__|\__|_|\___||___/_| |_|_| .__/  "
+    puts  "                                       | |      "
+    puts  "                                       |_|      "
+    puts  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    puts ""
     puts "Welcome to BATTLESHIP."
+    sleep(0.8)
     puts "Enter p to play. Enter q to quit."
 
     input = gets.chomp
@@ -18,60 +36,67 @@ class Game
       computer.set_up_cruiser
       computer.set_up_submarine
 
+      system 'clear'
+      puts  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+      puts  " _           _   _   _           _     _        "
+      puts  "| |         | | | | | |         | |   (_)       "
+      puts  "| |__   __ _| |_| |_| | ___  ___| |__  _ _ __   "
+      puts  "| '_ \ / _` | __| __| |/ _ \/ __| '_ \| | '_ \  "
+      puts  "| |_) | (_| | |_| |_| |  __/\__ \ | | | | |_) | "
+      puts  "|_.__/ \__,_|\__|\__|_|\___||___/_| |_|_| .__/  "
+      puts  "                                       | |      "
+      puts  "                                       |_|      "
+      puts  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+      puts ""
       puts "The computers' ships have been placed on the board."
+      sleep(0.8)
       puts "It is your turn to place your two ships."
+      sleep(0.8)
       puts "The Cruiser is three units long and the Submarine is two units long."
+      sleep(0.8)
 
       player.set_up_cruiser
       player.set_up_submarine
 
-      turn(computer, player)
+      play(computer, player)
     end
   end
 
-  def display_boards(computer, player)
-    # Displaying boards
-    puts "=============COMPUTER BOARD============="
-    puts computer.board.render
-    puts "==============PLAYER BOARD=============="
-    puts player.board.render(true)
-  end
-
-  def turn(computer, player)
-    10.times do
-      display_boards(computer, player)
-
-      # Player shot
-      loop do
-        puts "Enter coordinate to fire upon"
-        player_input = gets.chomp
-        if computer.board.valid_coordinate?(player_input) == true
-          computer.board.cells[player_input].fire_upon
-          if computer.board.cells[player_input].render(true) == "M"
-            puts "Your shot on #{player_input} was a miss."
-          elsif computer.board.cells[player_input].render(true) == "H"
-            puts "Your shot on #{player_input} was a hit."
-          elsif computer.board.cells[player_input].render(true) == "X"
-            #puts "Your shot on #{player_input} sunk the #{computer.board.cells.ship.name}."
-          end
-
-          break
-        end
-        puts "That is not a valid coordinate. Please try again:"
-      end
-
-      # Computer Shot
-      computer_input = player.board.cells.keys.sample
-      if player.board.valid_coordinate?(computer_input) == true
-        player.board.cells[computer_input].fire_upon
-        if player.board.cells[computer_input].render(true) == "M"
-          puts "Computer shot on #{computer_input} was a miss."
-        elsif player.board.cells[computer_input].render(true) == "H"
-          puts "Computer shot on #{computer_input} was a hit."
-        elsif player.board.cells[computer_input].render(true) == "X"
-          #puts "Computer shot on #{computer_input} sunk the #{player.board.cells.ship.name}."
-        end
+  def play(computer, player)
+    loop do
+      system 'clear'
+      turn = Turn.new(computer, player)
+      turn.header
+      turn.display_boards(computer, player)
+      turn.player_shot(player)
+      turn.computer_shot(computer)
+      @computer_ships_sunk += turn.computer_ships_sunk
+      @player_ships_sunk += turn.player_ships_sunk
+      sleep(0.8)
+      if computer_ships_sunk?
+        puts "You won!"
+        break
+      elsif player_ships_sunk?
+        puts "Computer won!"
+        break
+      else
+        next
       end
     end
+    play_again?
+  end
+
+  def computer_ships_sunk?
+    computer_ships_sunk == 2
+  end
+
+  def player_ships_sunk?
+    player_ships_sunk == 2
+  end
+
+  def play_again?
+    puts "Would you like to play again? (y)es / (n)o "
+    input = gets.chomp
+    start if input.downcase == 'y'
   end
 end
