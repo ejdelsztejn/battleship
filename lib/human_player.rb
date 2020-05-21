@@ -11,7 +11,7 @@ class HumanPlayer
       puts "Enter the squares for the Cruiser (3 spaces):"
       input = gets.chomp
       cruiser_coords = input.split(" ")
-      if board.valid_placement?(cruiser, cruiser_coords) == true
+      if board.valid_placement?(cruiser, cruiser_coords)
         @board.place(cruiser, cruiser_coords)
         break
       end
@@ -24,7 +24,7 @@ class HumanPlayer
       puts "Enter the squares for the Submarine (2 spaces):"
       input = gets.chomp
       submarine_coords = input.split(" ")
-      if board.valid_placement?(submarine, submarine_coords) == true
+      if board.valid_placement?(submarine, submarine_coords)
         @board.place(submarine, submarine_coords)
         system 'clear'
         break

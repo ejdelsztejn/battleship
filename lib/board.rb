@@ -20,6 +20,7 @@ class Board
     answer = true
     answer = false if !are_coordinates_ship_length?(ship, coordinates)
     answer = false if contains_ship?(coordinates)
+    return false if coordinates.empty?
     i = 0
     until i == coordinates.size - 1
       if are_coordinates_same_letter?(ship, coordinates)
