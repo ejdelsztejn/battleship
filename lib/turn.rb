@@ -33,18 +33,20 @@ class Turn
     loop do
       puts "Enter coordinate to fire upon"
       player_input = gets.chomp
-      if computer.board.valid_coordinate?(player_input) == true
-        if computer.board.cells[player_input].fired_upon? == false
-          @computer.board.cells[player_input].fire_upon
-          if computer.board.cells[player_input].render(true) == "M"
-            puts "Your shot on #{player_input} was a miss."
-          elsif computer.board.cells[player_input].render(true) == "H"
-            puts "Your shot on #{player_input} was a hit."
-          elsif computer.board.cells[player_input].render(true) == "X"
-            puts "Your shot on #{player_input} sunk a ship."
-            @computer_ships_sunk += 1
+      if player_input != []
+        if computer.board.valid_coordinate?(player_input) == true
+          if computer.board.cells[player_input].fired_upon? == false
+            @computer.board.cells[player_input].fire_upon
+            if computer.board.cells[player_input].render(true) == "M"
+              puts "Your shot on #{player_input} was a miss."
+            elsif computer.board.cells[player_input].render(true) == "H"
+              puts "Your shot on #{player_input} was a hit."
+            elsif computer.board.cells[player_input].render(true) == "X"
+              puts "Your shot on #{player_input} sunk a ship."
+              @computer_ships_sunk += 1
+            end
+            break
           end
-          break
         end
       end
       puts "That is not a valid coordinate. Please try again:"
