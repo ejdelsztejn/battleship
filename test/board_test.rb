@@ -84,7 +84,6 @@ class BoardTest < Minitest::Test
     cell_3 = board.cells["A3"]
 
     board.place(cruiser, ["A1", "A2", "A3"])
-    board_class
     assert_instance_of Ship, cell_1.ship
     assert_instance_of Ship, cell_2.ship
     assert_instance_of Ship, cell_3.ship
